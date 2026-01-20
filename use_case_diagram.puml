@@ -1,0 +1,201 @@
+@startuml Sistem Manajemen Bengkel Cahaya Erlangga
+
+left to right direction
+skinparam packageStyle rectangle
+
+actor "User" as User
+actor "Admin" as Admin
+actor "Manager" as Manager
+
+rectangle "Sistem Manajemen Bengkel Cahaya Erlangga" {
+  
+  package "Autentikasi & Akses" {
+    usecase "Login ke Sistem" as UC01
+    usecase "Logout dari Sistem" as UC02
+    usecase "Kelola Pengguna" as UC03
+    usecase "Atur Hak Akses" as UC04
+  }
+  
+  package "Manajemen Master Data" {
+    usecase "Kelola Data Barang" as UC05
+    usecase "Tambah Barang Baru" as UC06
+    usecase "Edit Data Barang" as UC07
+    usecase "Hapus Data Barang" as UC08
+    usecase "Cari Barang" as UC09
+    usecase "Scan Barcode Barang" as UC10
+    
+    usecase "Kelola Kategori" as UC11
+    usecase "Tambah Kategori" as UC12
+    usecase "Edit Kategori" as UC13
+    usecase "Hapus Kategori" as UC14
+    
+    usecase "Kelola Merek" as UC15
+    usecase "Tambah Merek" as UC16
+    usecase "Edit Merek" as UC17
+    usecase "Hapus Merek" as UC18
+    
+    usecase "Kelola Gudang" as UC19
+    usecase "Tambah Gudang" as UC20
+    usecase "Edit Gudang" as UC21
+    usecase "Hapus Gudang" as UC22
+  }
+  
+  package "Manajemen Relasi" {
+    usecase "Kelola Data Pemasok" as UC23
+    usecase "Tambah Pemasok" as UC24
+    usecase "Edit Pemasok" as UC25
+    usecase "Hapus Pemasok" as UC26
+    
+    usecase "Kelola Data Pelanggan" as UC27
+    usecase "Tambah Pelanggan" as UC28
+    usecase "Edit Pelanggan" as UC29
+    usecase "Hapus Pelanggan" as UC30
+  }
+  
+  package "Transaksi Inventory" {
+    usecase "Kelola Barang Masuk" as UC31
+    usecase "Input Barang Masuk" as UC32
+    usecase "Edit Barang Masuk" as UC33
+    usecase "Hapus Barang Masuk" as UC34
+    usecase "Lihat Detail Barang Masuk" as UC35
+    
+    usecase "Kelola Barang Keluar" as UC36
+    usecase "Input Barang Keluar" as UC37
+    usecase "Edit Barang Keluar" as UC38
+    usecase "Hapus Barang Keluar" as UC39
+    usecase "Lihat Detail Barang Keluar" as UC40
+  }
+  
+  package "Transaksi Penjualan" {
+    usecase "Kelola Penjualan" as UC41
+    usecase "Buat Transaksi Penjualan" as UC42
+    usecase "Edit Transaksi Penjualan" as UC43
+    usecase "Hapus Transaksi Penjualan" as UC44
+    usecase "Cetak Nota Penjualan" as UC45
+    usecase "Lihat Detail Penjualan" as UC46
+  }
+  
+  package "Pelaporan" {
+    usecase "Lihat Dashboard" as UC47
+    usecase "Generate Laporan" as UC48
+    usecase "Laporan Stok Barang" as UC49
+    usecase "Laporan Barang Masuk" as UC50
+    usecase "Laporan Barang Keluar" as UC51
+    usecase "Laporan Penjualan" as UC52
+    usecase "Laporan Keuangan" as UC53
+    usecase "Export Laporan PDF" as UC54
+    usecase "Export Laporan Excel" as UC55
+  }
+  
+  package "Pengaturan & Backup" {
+    usecase "Kelola Pengaturan Sistem" as UC56
+    usecase "Ubah Tema Aplikasi" as UC57
+    usecase "Backup Database" as UC58
+    usecase "Restore Database" as UC59
+    usecase "Atur Preferensi" as UC60
+  }
+}
+
+Admin --|> User
+Manager --|> User
+
+User --> UC01
+User --> UC02
+User --> UC47
+User --> UC09
+User --> UC10
+
+User --> UC35
+User --> UC40
+User --> UC46
+
+User --> UC05
+User --> UC11
+User --> UC15
+User --> UC19
+User --> UC23
+User --> UC27
+
+User --> UC31
+User --> UC36
+User --> UC41
+
+User --> UC48
+User --> UC56
+User --> UC57
+
+Admin --> UC03
+Admin --> UC04
+Admin --> UC58
+Admin --> UC59
+Admin --> UC60
+
+Manager --> UC48
+Manager --> UC49
+Manager --> UC50
+Manager --> UC51
+Manager --> UC52
+Manager --> UC53
+Manager --> UC54
+Manager --> UC55
+
+UC05 ..> UC06 : <<include>>
+UC05 ..> UC07 : <<include>>
+UC05 ..> UC08 : <<include>>
+UC05 ..> UC09 : <<include>>
+
+UC06 ..> UC10 : <<extend>>
+UC09 ..> UC10 : <<extend>>
+
+UC11 ..> UC12 : <<include>>
+UC11 ..> UC13 : <<include>>
+UC11 ..> UC14 : <<include>>
+
+UC15 ..> UC16 : <<include>>
+UC15 ..> UC17 : <<include>>
+UC15 ..> UC18 : <<include>>
+
+UC19 ..> UC20 : <<include>>
+UC19 ..> UC21 : <<include>>
+UC19 ..> UC22 : <<include>>
+
+UC23 ..> UC24 : <<include>>
+UC23 ..> UC25 : <<include>>
+UC23 ..> UC26 : <<include>>
+
+UC27 ..> UC28 : <<include>>
+UC27 ..> UC29 : <<include>>
+UC27 ..> UC30 : <<include>>
+
+UC31 ..> UC32 : <<include>>
+UC31 ..> UC33 : <<include>>
+UC31 ..> UC34 : <<include>>
+UC31 ..> UC35 : <<include>>
+
+UC32 ..> UC10 : <<extend>>
+
+UC36 ..> UC37 : <<include>>
+UC36 ..> UC38 : <<include>>
+UC36 ..> UC39 : <<include>>
+UC36 ..> UC40 : <<include>>
+
+UC37 ..> UC10 : <<extend>>
+
+UC41 ..> UC42 : <<include>>
+UC41 ..> UC43 : <<include>>
+UC41 ..> UC44 : <<include>>
+UC41 ..> UC46 : <<include>>
+
+UC42 ..> UC45 : <<extend>>
+UC42 ..> UC10 : <<extend>>
+
+UC48 ..> UC49 : <<extend>>
+UC48 ..> UC50 : <<extend>>
+UC48 ..> UC51 : <<extend>>
+UC48 ..> UC52 : <<extend>>
+UC48 ..> UC53 : <<extend>>
+
+UC48 ..> UC54 : <<extend>>
+UC48 ..> UC55 : <<extend>>
+
+@enduml

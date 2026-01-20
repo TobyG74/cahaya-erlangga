@@ -1,0 +1,25 @@
+include: package:flutter_lints/flutter.yaml
+
+linter:
+  rules:
+    # Good practices
+    always_declare_return_types: true
+
+    avoid_print: false  # Allow print for debugging
+    prefer_const_constructors: true
+    prefer_const_declarations: true
+    prefer_const_literals_to_create_immutables: true
+    prefer_final_fields: true
+    prefer_final_locals: true
+    
+    # Styling
+    lines_longer_than_80_chars: false
+    
+analyzer:
+  errors:
+    todo: ignore
+    missing_required_param: error
+    missing_return: error
+  exclude:
+    - "**/*.g.dart"
+    - "**/*.freezed.dart"

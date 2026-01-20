@@ -1,0 +1,85 @@
+name: erlangga_motor
+description: Erlangga Motor - Sistem Manajemen Bengkel Motor
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  
+  # State Management
+  provider: ^6.1.2
+  
+  # Database
+  sqflite: ^2.3.2
+  path_provider: ^2.1.2
+  path: ^1.9.0
+  
+  # Permissions
+  permission_handler: ^11.3.0
+  
+  # Local Storage & Cache
+  shared_preferences: ^2.2.2
+  
+  # PDF Generation & Printing
+  pdf: ^3.10.8
+  printing: ^5.12.0
+  
+  # Excel Export
+  excel: ^4.0.3
+  
+  # CSV Export
+  csv: ^6.0.0
+  
+  # Date & Time
+  intl: ^0.19.0
+  
+  # UI Components
+  cupertino_icons: ^1.0.6
+  flutter_slidable: ^3.1.0
+  shimmer: ^3.0.0
+  
+  # Charts & Visualization
+  fl_chart: ^0.66.2
+  
+  # Image & Icons
+  image: ^4.1.7
+  
+  # Utilities
+  uuid: ^4.3.3
+  
+  # Barcode Scanner
+  mobile_scanner: ^5.2.3
+  
+  # File Picker
+  file_picker: ^8.1.6
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.0
+  flutter_launcher_icons: ^0.13.1
+
+flutter_launcher_icons:
+  android: true
+  ios: false
+  image_path: "icon.png"
+  min_sdk_android: 21
+  adaptive_icon_background: "#FFFFFF"
+  adaptive_icon_foreground: "icon.png"
+
+flutter:
+  uses-material-design: true
+  
+  assets:
+    - icon.png
+  
+  # fonts:
+  #   - family: CustomFont
+  #     fonts:
+  #       - asset: fonts/CustomFont-Regular.ttf
+  #       - asset: fonts/CustomFont-Bold.ttf
+  #         weight: 700
