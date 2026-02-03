@@ -191,7 +191,7 @@ Aplikasi menggunakan SQLite dengan struktur database sebagai berikut:
 ## Kontributor
 
 - Developer: Tobi Saputra
-- Anggota: 
+- Anggota KKP: 
     - Endriyan Ramadhan
     - Muhammad Ishafakhri Akbar
     - Muhammad Zulfahmi
@@ -199,6 +199,7 @@ Aplikasi menggunakan SQLite dengan struktur database sebagai berikut:
     - Fachri Akbar Alghifahri
     - Ridho Alfiansyah Yuharian
     - Azizan Ramadhan
+    - Tobi Saputra
 - Pembimbing: Dr. Adhi Susano, M. Kom.
 - Institusi: Universitas Indraprasta
 
