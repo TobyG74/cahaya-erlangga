@@ -84,7 +84,6 @@ class _KategoriScreenState extends State<KategoriScreen> with PaginationMixin<Ka
       ),
       body: Column(
         children: [
-          // Search bar
           Padding(
             padding: const EdgeInsets.all(16),
             child: TextField(
@@ -152,7 +151,6 @@ class _KategoriScreenState extends State<KategoriScreen> with PaginationMixin<Ka
                                   padding: const EdgeInsets.all(12),
                                   child: Row(
                                     children: [
-                                      // Icon container
                                       Container(
                                         width: 44,
                                         height: 44,
@@ -181,7 +179,6 @@ class _KategoriScreenState extends State<KategoriScreen> with PaginationMixin<Ka
                                         ),
                                       ),
                                       const SizedBox(width: 12),
-                                      // Content
                                       Expanded(
                                         child: Column(
                                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -219,7 +216,6 @@ class _KategoriScreenState extends State<KategoriScreen> with PaginationMixin<Ka
                                           ],
                                         ),
                                       ),
-                                      // Actions menu
                                       if (authProvider.canDeleteData())
                                         PopupMenuButton(
                                           icon: const Icon(Icons.more_vert, size: 20),
@@ -407,7 +403,6 @@ class _KategoriFormScreenState extends State<KategoriFormScreen> {
     } catch (e) {
       if (mounted) {
         String errorMessage = e.toString();
-        // Remove "Exception: " prefix if exists
         if (errorMessage.startsWith('Exception: ')) {
           errorMessage = errorMessage.substring(11);
         }

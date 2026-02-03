@@ -101,7 +101,6 @@ mixin PaginationMixin<T extends StatefulWidget, M> on State<T> {
                   padding: const EdgeInsets.all(8),
                   constraints: const BoxConstraints(minWidth: 32, minHeight: 32),
                 ),
-                // Previous page button (<)
                 IconButton(
                   icon: const Icon(Icons.chevron_left, size: 18),
                   onPressed: currentPage > 1 ? previousPage : null,
@@ -151,7 +150,6 @@ mixin PaginationMixin<T extends StatefulWidget, M> on State<T> {
                   );
                 }),
                 const SizedBox(width: 4),
-                // Next page button (>)
                 IconButton(
                   icon: const Icon(Icons.chevron_right, size: 18),
                   onPressed: currentPage < totalPages ? nextPage : null,
@@ -161,7 +159,6 @@ mixin PaginationMixin<T extends StatefulWidget, M> on State<T> {
                   padding: const EdgeInsets.all(8),
                   constraints: const BoxConstraints(minWidth: 32, minHeight: 32),
                 ),
-                // Last page button (>>)
                 IconButton(
                   icon: const Icon(Icons.last_page, size: 18),
                   onPressed: currentPage < totalPages ? lastPage : null,
@@ -171,7 +168,7 @@ mixin PaginationMixin<T extends StatefulWidget, M> on State<T> {
                   padding: const EdgeInsets.all(8),
                   constraints: const BoxConstraints(minWidth: 32, minHeight: 32),
                 ),
-                const SizedBox(width: 8), // Extra space at the end
+                const SizedBox(width: 8), 
               ],
             ),
           ),
@@ -180,7 +177,6 @@ mixin PaginationMixin<T extends StatefulWidget, M> on State<T> {
     );
   }
   
-  /// Widget untuk menampilkan loading indicator
   Widget buildLoadingIndicator() {
     if (!isLoadingMore) return const SizedBox.shrink();
     

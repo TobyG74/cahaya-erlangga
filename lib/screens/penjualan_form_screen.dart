@@ -15,16 +15,13 @@ class PenjualanFormScreen extends StatefulWidget {
 class _PenjualanFormScreenState extends State<PenjualanFormScreen> {
   final _dbHelper = DatabaseHelper.instance;
   
-  // Data
   List<Pelanggan> _pelangganList = [];
   List<Barang> _barangList = [];
   List<CartItem> _cartItems = [];
   
-  // Controllers
   final _pelangganController = TextEditingController();
   final _searchBarangController = TextEditingController();
   
-  // State
   String? _selectedPelangganId;
   DateTime _tanggalPenjualan = DateTime.now();
   bool _isLoading = true;
@@ -45,7 +42,7 @@ class _PenjualanFormScreenState extends State<PenjualanFormScreen> {
       
       setState(() {
         _pelangganList = pelanggan;
-        _barangList = barang.where((b) => b.stok > 0).toList(); // Only show items with stock
+        _barangList = barang.where((b) => b.stok > 0).toList(); 
         _isLoading = false;
       });
     } catch (e) {
@@ -63,7 +60,6 @@ class _PenjualanFormScreenState extends State<PenjualanFormScreen> {
       final existingIndex = _cartItems.indexWhere((item) => item.barang.idBarang == barang.idBarang);
       
       if (existingIndex >= 0) {
-        // Update quantity
         final newQuantity = _cartItems[existingIndex].quantity + quantity;
         if (newQuantity <= barang.stok) {
           _cartItems[existingIndex] = CartItem(
@@ -79,7 +75,6 @@ class _PenjualanFormScreenState extends State<PenjualanFormScreen> {
           );
         }
       } else {
-        // Add new item
         if (quantity <= barang.stok) {
           _cartItems.add(CartItem(barang: barang, quantity: quantity));
         } else {
@@ -209,7 +204,6 @@ class _PenjualanFormScreenState extends State<PenjualanFormScreen> {
 
     if (result == true) {
       await _loadData();
-      // Auto-select the newly added pelanggan
       if (_pelangganList.isNotEmpty) {
         final lastPelanggan = _pelangganList.last;
         setState(() {
@@ -236,7 +230,6 @@ class _PenjualanFormScreenState extends State<PenjualanFormScreen> {
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Search barang
                 Autocomplete<Barang>(
                   optionsBuilder: (TextEditingValue textEditingValue) {
                     if (textEditingValue.text.isEmpty) {
@@ -536,13 +529,11 @@ class _PenjualanFormScreenState extends State<PenjualanFormScreen> {
           ? const Center(child: CircularProgressIndicator())
           : Column(
               children: [
-                // Header Info
                 Container(
                   padding: const EdgeInsets.all(16),
                   color: Theme.of(context).colorScheme.primaryContainer,
                   child: Column(
                     children: [
-                      // Pelanggan
                       Row(
                         children: [
                           Expanded(
@@ -620,7 +611,6 @@ class _PenjualanFormScreenState extends State<PenjualanFormScreen> {
                         ],
                       ),
                       const SizedBox(height: 12),
-                      // Tanggal
                       InkWell(
                         onTap: _selectDate,
                         child: InputDecorator(
@@ -639,7 +629,6 @@ class _PenjualanFormScreenState extends State<PenjualanFormScreen> {
                   ),
                 ),
                 
-                // Cart Items
                 Expanded(
                   child: _cartItems.isEmpty
                       ? Center(
@@ -804,7 +793,6 @@ class _PenjualanFormScreenState extends State<PenjualanFormScreen> {
                         ),
                 ),
                 
-                // Total & Actions
                 Container(
                   padding: const EdgeInsets.all(16),
                   decoration: BoxDecoration(

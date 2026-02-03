@@ -39,7 +39,6 @@ class _LoginScreenState extends State<LoginScreen> {
     if (!mounted) return;
 
     if (success) {
-      // Navigation is handled automatically by main.dart
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text('Selamat datang, ${authProvider.currentUser?.fullname}!'),
@@ -71,7 +70,6 @@ class _LoginScreenState extends State<LoginScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  // Logo/Icon
                   Icon(
                     Icons.car_repair,
                     size: 80,
@@ -79,7 +77,6 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   const SizedBox(height: 16),
 
-                  // Title
                   Text(
                     'Erlangga Motor',
                     style: theme.textTheme.headlineMedium?.copyWith(
@@ -99,7 +96,6 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   const SizedBox(height: 48),
 
-                  // Username field
                   TextFormField(
                     controller: _usernameController,
                     decoration: const InputDecoration(
@@ -117,7 +113,6 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   const SizedBox(height: 16),
 
-                  // Password field
                   TextFormField(
                     controller: _passwordController,
                     obscureText: !_isPasswordVisible,
@@ -149,7 +144,6 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   const SizedBox(height: 24),
 
-                  // Login button
                   ElevatedButton(
                     onPressed: _isLoading ? null : _handleLogin,
                     style: ElevatedButton.styleFrom(

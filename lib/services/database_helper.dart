@@ -1079,13 +1079,11 @@ class DatabaseHelper {
     List<String> conditions = [];
     List<dynamic> whereArgs = [];
     
-    // Date range filter
     if (startDate != null && endDate != null) {
       conditions.add('p.tanggal_penjualan BETWEEN ? AND ?');
       whereArgs.addAll([startDate.toIso8601String(), endDate.toIso8601String()]);
     }
     
-    // Search filter
     if (searchQuery != null && searchQuery.isNotEmpty) {
       conditions.add('(p.id_penjualan LIKE ? OR pel.nama_pelanggan LIKE ?)');
       whereArgs.addAll(['%$searchQuery%', '%$searchQuery%']);
@@ -1093,7 +1091,6 @@ class DatabaseHelper {
     
     final whereClause = conditions.isNotEmpty ? 'WHERE ${conditions.join(' AND ')}' : '';
     
-    // Get total count
     final countResult = await db.rawQuery('''
       SELECT COUNT(*) as count 
       FROM penjualan p
@@ -1102,7 +1099,6 @@ class DatabaseHelper {
     ''', whereArgs.isNotEmpty ? whereArgs : null);
     final totalCount = Sqflite.firstIntValue(countResult) ?? 0;
     
-    // Get paginated data
     final result = await db.rawQuery('''
       SELECT p.*, pel.nama_pelanggan
       FROM penjualan p
@@ -1130,7 +1126,6 @@ class DatabaseHelper {
     return result.map((map) => PenjualanDetail.fromMap(map)).toList();
   }
 
-  // Dashboard Statistics
   Future<Map<String, dynamic>> getDashboardStats() async {
     final db = await database;
     
@@ -1166,7 +1161,6 @@ class DatabaseHelper {
     };
   }
 
-  // Close database
   Future<void> close() async {
     if (_database != null) {
       await _database!.close();
@@ -1174,31 +1168,25 @@ class DatabaseHelper {
     }
   }
 
-  // Get database path for backup
   Future<String> getDatabasePath() async {
     final dbPath = await getDatabasesPath();
     return join(dbPath, 'bengkel_v2.db');
   }
 
-  // Import SQL file
   Future<bool> importSqlFile(String sqlContent) async {
     try {
       final db = await database;
       
-      // Remove comment lines first
       final lines = sqlContent.split('\n');
       final cleanedLines = lines
           .where((line) => !line.trim().startsWith('--'))
           .join('\n');
       
-      // Split SQL content by semicolon and execute each statement
       final statements = cleanedLines
           .split(';')
           .map((s) => s.trim())
           .where((s) => s.isNotEmpty)
           .toList();
-      
-      print('Total SQL statements to execute: ${statements.length}');
       
       await db.transaction((txn) async {
         int successCount = 0;
@@ -1217,7 +1205,6 @@ class DatabaseHelper {
         print('Successfully executed $successCount out of ${statements.length} statements');
       });
       
-      // Verify data was inserted
       final barangCount = await db.rawQuery('SELECT COUNT(*) as count FROM barang');
       final kategoriCount = await db.rawQuery('SELECT COUNT(*) as count FROM kategori');
       final merekCount = await db.rawQuery('SELECT COUNT(*) as count FROM merek');
@@ -1231,7 +1218,6 @@ class DatabaseHelper {
     }
   }
 
-  // Report methods - Get data by date range
   Future<List<BarangMasuk>> getBarangMasukByDateRange(DateTime startDate, DateTime endDate) async {
     final db = await database;
     final startDateStr = startDate.toIso8601String().split('T')[0];
@@ -1294,5 +1280,20 @@ class DatabaseHelper {
     ''', [startDateStr, endDateStr]);
 
     return List.generate(maps.length, (i) => Penjualan.fromMap(maps[i]));
+  }
+
+  Future<int> getTotalBarangTerjualByDateRange(DateTime startDate, DateTime endDate) async {
+    final db = await database;
+    final startDateStr = startDate.toIso8601String().split('T')[0];
+    final endDateStr = endDate.toIso8601String().split('T')[0];
+    
+    final result = await db.rawQuery('''
+      SELECT COALESCE(SUM(pd.jumlah), 0) as total
+      FROM penjualan_detail pd
+      INNER JOIN penjualan p ON pd.id_penjualan = p.id_penjualan
+      WHERE DATE(p.tanggal_penjualan) BETWEEN ? AND ?
+    ''', [startDateStr, endDateStr]);
+
+    return (result.first['total'] as num?)?.toInt() ?? 0;
   }
 }

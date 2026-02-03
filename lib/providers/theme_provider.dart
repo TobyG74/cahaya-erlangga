@@ -12,12 +12,11 @@ class ThemeProvider extends ChangeNotifier {
   ThemeMode get themeMode => _themeMode;
   bool get isDarkMode => _themeMode == ThemeMode.dark;
 
-  // Modern color scheme for light mode
   static final ThemeData lightTheme = ThemeData(
     useMaterial3: true,
     brightness: Brightness.light,
     colorScheme: ColorScheme.fromSeed(
-      seedColor: const Color(0xFF2563EB), // Modern blue
+      seedColor: const Color(0xFF2563EB), 
       brightness: Brightness.light,
     ),
     scaffoldBackgroundColor: const Color(0xFFF8FAFC),
@@ -65,12 +64,11 @@ class ThemeProvider extends ChangeNotifier {
     ),
   );
 
-  // Modern color scheme for dark mode
   static final ThemeData darkTheme = ThemeData(
     useMaterial3: true,
     brightness: Brightness.dark,
     colorScheme: ColorScheme.fromSeed(
-      seedColor: const Color(0xFF3B82F6), // Lighter blue for dark mode
+      seedColor: const Color(0xFF3B82F6),
       brightness: Brightness.dark,
     ),
     scaffoldBackgroundColor: const Color(0xFF0F172A),

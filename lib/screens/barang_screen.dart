@@ -110,7 +110,6 @@ class _BarangScreenState extends State<BarangScreen> with PaginationMixin<Barang
       ),
       body: Column(
         children: [
-          // Search bar
           Padding(
             padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
             child: TextField(
@@ -140,7 +139,6 @@ class _BarangScreenState extends State<BarangScreen> with PaginationMixin<Barang
               onChanged: (v) => _onSearchOrFilterChanged(),
             ),
           ),
-          // Filter chips
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -177,7 +175,6 @@ class _BarangScreenState extends State<BarangScreen> with PaginationMixin<Barang
             ),
           ),
 
-          // List
           Expanded(
             child: _isLoading && items.isEmpty
                 ? const Center(child: CircularProgressIndicator())
@@ -217,8 +214,6 @@ class _BarangScreenState extends State<BarangScreen> with PaginationMixin<Barang
                         ),
                       ),
           ),
-          
-          // Pagination controls
           buildPaginationControls(),
         ],
       ),
@@ -256,10 +251,8 @@ class _BarangScreenState extends State<BarangScreen> with PaginationMixin<Barang
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Header row
               Row(
                 children: [
-                  // Icon container
                   Container(
                     width: 44,
                     height: 44,
@@ -288,7 +281,6 @@ class _BarangScreenState extends State<BarangScreen> with PaginationMixin<Barang
                     ),
                   ),
                   const SizedBox(width: 12),
-                  // Title and ID
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -314,7 +306,6 @@ class _BarangScreenState extends State<BarangScreen> with PaginationMixin<Barang
                       ],
                     ),
                   ),
-                  // Actions menu
                   if (authProvider.canDeleteData())
                     PopupMenuButton(
                       icon: const Icon(Icons.more_vert, size: 20),
@@ -351,10 +342,8 @@ class _BarangScreenState extends State<BarangScreen> with PaginationMixin<Barang
                 ],
               ),
               const SizedBox(height: 10),
-              // Divider
               Divider(color: Colors.grey.shade300, height: 1),
               const SizedBox(height: 8),
-              // Info row - compact
               Row(
                 children: [
                   if (barang.namaKategori != null) ...[
@@ -390,7 +379,6 @@ class _BarangScreenState extends State<BarangScreen> with PaginationMixin<Barang
                 ],
               ),
               const SizedBox(height: 8),
-              // Price and stock row - more compact
               Row(
                 children: [
                   Expanded(

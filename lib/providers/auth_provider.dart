@@ -60,7 +60,6 @@ class AuthProvider extends ChangeNotifier {
       }
       return false;
     } catch (e) {
-      print('Login error: $e');
       return false;
     }
   }
@@ -87,7 +86,6 @@ class AuthProvider extends ChangeNotifier {
       notifyListeners();
       return true;
     } catch (e) {
-      print('Update password error: $e');
       return false;
     }
   }
@@ -103,5 +101,5 @@ class AuthProvider extends ChangeNotifier {
   bool canCreateUser() => _currentUser?.role == 'Admin';
   bool canDeleteData() => _currentUser?.role == 'Admin';
   bool canExportData() => _currentUser?.role == 'Admin' || _currentUser?.role == 'Manager';
-  bool canManageInventory() => true; // All roles can manage inventory
+  bool canManageInventory() => true; 
 }
