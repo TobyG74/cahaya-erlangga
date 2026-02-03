@@ -1,6 +1,6 @@
 # Erlangga Motor - Sistem Manajemen Bengkel
 
-Aplikasi manajemen inventory dan penjualan untuk bengkel motor yang dibuat menggunakan Flutter. Aplikasi ini memudahkan pengelolaan stok barang, transaksi penjualan, dan laporan operasional bengkel.
+Aplikasi manajemen inventory dan penjualan untuk bengkel motor yang dibuat menggunakan Flutter. Aplikasi ini memudahkan pengelolaan stok barang, transaksi penjualan, dan laporan operasional bengkel. Aplikasi ini dibuat untuk memenuhi tugas akhir/KKP (Kerja Praktek) di Universitas Indraprasta.
 
 ## Tentang Aplikasi
 
