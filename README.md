@@ -26,7 +26,7 @@ Pastikan kamu sudah install:
 
 1. **Clone repository ini**
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/TobyG74/cahaya-erlangga
    cd cahaya_erlangga
    ```
 
