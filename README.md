@@ -186,7 +186,7 @@ Aplikasi menggunakan SQLite dengan struktur database sebagai berikut:
 
 ## Lisensi
 
-[MIT Lisence]() Project ini dibuat untuk keperluan tugas akhir/KKP (Kerja Praktek).
+[MIT Lisence](https://github.com/TobyG74/cahaya-erlangga/blob/master/LICENSE) - Project ini dibuat untuk keperluan tugas akhir/KKP (Kerja Praktek).
 
 ## Kontributor
 
