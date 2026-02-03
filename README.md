@@ -191,7 +191,14 @@ Aplikasi menggunakan SQLite dengan struktur database sebagai berikut:
 ## Kontributor
 
 - Developer: Tobi Saputra
-- Anggota : Fachri Akbar Alghifahri
+- Anggota: 
+    - Endriyan Ramadhan
+    - Muhammad Ishafakhri Akbar
+    - Muhammad Zulfahmi
+    - Satrio Baskoro
+    - Fachri Akbar Alghifahri
+    - Ridho Alfiansyah Yuharian
+    - Azizan Ramadhan
 - Pembimbing: Dr. Adhi Susano, M. Kom.
 - Institusi: Universitas Indraprasta
 
