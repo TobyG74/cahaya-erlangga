@@ -1,6 +1,8 @@
 # Erlangga Motor - Sistem Manajemen Bengkel
 
-Aplikasi manajemen inventory dan penjualan untuk bengkel motor yang dibuat menggunakan Flutter. Aplikasi ini memudahkan pengelolaan stok barang, transaksi penjualan, dan laporan operasional bengkel. Aplikasi ini dibuat untuk memenuhi tugas akhir/KKP (Kerja Praktek) di Universitas Indraprasta yang berjudul "SISTEM ADIMINISTRASI PENJUALAN DAN PEMBELIAN SUKU CADANG MOBIL PADA CAHAYA ERLANGGA MOTOR"
+Aplikasi manajemen inventory dan penjualan untuk bengkel motor yang dibuat menggunakan Flutter. Aplikasi ini dirancang dengan tujuan untuk mengoptimalkan pengelolaan stok barang, transaksi penjualan, dan pelaporan operasional pada Cahaya Erlangga Motor. Sistem ini dikembangkan untuk mencegah terjadinya kesalahan pencatatan manual, kehilangan data transaksi, dan ketidakakuratan dalam perhitungan stok barang. Dengan sistem digital yang terintegrasi, aplikasi ini memastikan efisiensi operasional, transparansi keuangan, dan kemudahan dalam monitoring inventori secara real-time.
+
+Aplikasi ini dibuat untuk memenuhi tugas akhir/KKP (Kerja Praktek) di Universitas Indraprasta PGRI yang berjudul **"SISTEM ADMINISTRASI PENJUALAN DAN PEMBELIAN SUKU CADANG MOBIL PADA CAHAYA ERLANGGA MOTOR"**.
 
 - Anggota KKP: 
     - Endriyan Ramadhan (202243502595)
@@ -11,10 +13,6 @@ Aplikasi manajemen inventory dan penjualan untuk bengkel motor yang dibuat mengg
     - Fachri Akbar Alghifahri (202243502642)
     - Ridho Alfiansyah Yuharian (202243502644)
     - Azizan Ramadhan (202243502583)
-
-## Tentang Aplikasi
-
-Erlangga Motor adalah sistem manajemen bengkel yang dirancang untuk membantu pemilik dan karyawan bengkel dalam mengelola berbagai aspek operasional, mulai dari inventori suku cadang, transaksi penjualan, hingga pelaporan. Aplikasi ini dibangun dengan Flutter sehingga bisa berjalan di platform Android.
 
 ## Teknologi yang Digunakan
 
