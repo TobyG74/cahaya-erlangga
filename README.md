@@ -201,7 +201,7 @@ Aplikasi menggunakan SQLite dengan struktur database sebagai berikut:
     - Azizan Ramadhan
     - Tobi Saputra
 - Pembimbing: Dr. Adhi Susano, M. Kom.
-- Institusi: Universitas Indraprasta
+- Institusi: Universitas Indraprasta PGRI
 
 ---
 
