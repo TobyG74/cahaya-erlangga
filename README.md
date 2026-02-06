@@ -3,14 +3,14 @@
 Aplikasi manajemen inventory dan penjualan untuk bengkel motor yang dibuat menggunakan Flutter. Aplikasi ini memudahkan pengelolaan stok barang, transaksi penjualan, dan laporan operasional bengkel. Aplikasi ini dibuat untuk memenuhi tugas akhir/KKP (Kerja Praktek) di Universitas Indraprasta yang berjudul "SISTEM ADIMINISTRASI PENJUALAN DAN PEMBELIAN SUKU CADANG MOBIL PADA CAHAYA ERLANGGA MOTOR"
 
 - Anggota KKP: 
-    - Endriyan Ramadhan
-    - Muhammad Ishafakhri Akbar
-    - Muhammad Zulfahmi
-    - Satrio Baskoro
-    - Fachri Akbar Alghifahri
-    - Ridho Alfiansyah Yuharian
-    - Azizan Ramadhan
-    - Tobi Saputra
+    - Endriyan Ramadhan (202243502595)
+    - Muhammad Ishafakhri Akbar (202243502587)
+    - Muhammad Zulfahmi (202243502609)
+    - Tobi Saputra (202243502612)
+    - Satrio Baskoro (202243502598)
+    - Fachri Akbar Alghifahri (202243502642)
+    - Ridho Alfiansyah Yuharian (202243502644)
+    - Azizan Ramadhan (202243502583)
 
 ## Tentang Aplikasi
 
