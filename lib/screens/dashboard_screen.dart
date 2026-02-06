@@ -212,7 +212,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 ClipRRect(
                   borderRadius: BorderRadius.circular(8),
                   child: Image.asset(
-                    'icon.png',
+                    'assets/icon.png',
                     width: 64,
                     height: 64,
                     fit: BoxFit.contain,

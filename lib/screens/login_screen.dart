@@ -41,7 +41,8 @@ class _LoginScreenState extends State<LoginScreen> {
     if (success) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('Selamat datang, ${authProvider.currentUser?.fullname}!'),
+          content:
+              Text('Selamat datang, ${authProvider.currentUser?.fullname}!'),
           backgroundColor: Colors.green,
         ),
       );
@@ -70,13 +71,15 @@ class _LoginScreenState extends State<LoginScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  Icon(
-                    Icons.car_repair,
-                    size: 80,
-                    color: theme.colorScheme.primary,
+                  Center(
+                    child: Image.asset(
+                      'assets/icon.png',
+                      width: 120,
+                      height: 120,
+                      fit: BoxFit.contain,
+                    ),
                   ),
                   const SizedBox(height: 16),
-
                   Text(
                     'Erlangga Motor',
                     style: theme.textTheme.headlineMedium?.copyWith(
@@ -86,7 +89,6 @@ class _LoginScreenState extends State<LoginScreen> {
                     textAlign: TextAlign.center,
                   ),
                   const SizedBox(height: 8),
-
                   Text(
                     'Sistem Manajemen Inventory & Penjualan',
                     style: theme.textTheme.bodyMedium?.copyWith(
@@ -95,7 +97,6 @@ class _LoginScreenState extends State<LoginScreen> {
                     textAlign: TextAlign.center,
                   ),
                   const SizedBox(height: 48),
-
                   TextFormField(
                     controller: _usernameController,
                     decoration: const InputDecoration(
@@ -112,7 +113,6 @@ class _LoginScreenState extends State<LoginScreen> {
                     },
                   ),
                   const SizedBox(height: 16),
-
                   TextFormField(
                     controller: _passwordController,
                     obscureText: !_isPasswordVisible,
@@ -143,7 +143,6 @@ class _LoginScreenState extends State<LoginScreen> {
                     },
                   ),
                   const SizedBox(height: 24),
-
                   ElevatedButton(
                     onPressed: _isLoading ? null : _handleLogin,
                     style: ElevatedButton.styleFrom(
@@ -157,7 +156,8 @@ class _LoginScreenState extends State<LoginScreen> {
                             width: 20,
                             child: CircularProgressIndicator(
                               strokeWidth: 2,
-                              valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                              valueColor:
+                                  AlwaysStoppedAnimation<Color>(Colors.white),
                             ),
                           )
                         : const Text(

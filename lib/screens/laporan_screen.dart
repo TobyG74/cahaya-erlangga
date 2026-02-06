@@ -22,19 +22,20 @@ class LaporanScreen extends StatefulWidget {
   State<LaporanScreen> createState() => _LaporanScreenState();
 }
 
-class _LaporanScreenState extends State<LaporanScreen> with SingleTickerProviderStateMixin {
+class _LaporanScreenState extends State<LaporanScreen>
+    with SingleTickerProviderStateMixin {
   late TabController _tabController;
   final DatabaseHelper _dbHelper = DatabaseHelper.instance;
-  
+
   DateTime _startDate = DateTime.now().subtract(const Duration(days: 30));
   DateTime _endDate = DateTime.now();
-  
+
   List<BarangMasuk> _barangMasukList = [];
   List<BarangKeluar> _barangKeluarList = [];
   List<Penjualan> _penjualanList = [];
   List<Barang> _barangList = [];
   int _totalBarangTerjual = 0;
-  
+
   bool _isLoading = false;
 
   @override
@@ -53,14 +54,18 @@ class _LaporanScreenState extends State<LaporanScreen> with SingleTickerProvider
 
   Future<void> _loadData() async {
     setState(() => _isLoading = true);
-    
+
     try {
-      final barangMasuk = await _dbHelper.getBarangMasukByDateRange(_startDate, _endDate);
-      final barangKeluar = await _dbHelper.getBarangKeluarByDateRange(_startDate, _endDate);
-      final penjualan = await _dbHelper.getPenjualanByDateRange(_startDate, _endDate);
-      final totalBarang = await _dbHelper.getTotalBarangTerjualByDateRange(_startDate, _endDate);
+      final barangMasuk =
+          await _dbHelper.getBarangMasukByDateRange(_startDate, _endDate);
+      final barangKeluar =
+          await _dbHelper.getBarangKeluarByDateRange(_startDate, _endDate);
+      final penjualan =
+          await _dbHelper.getPenjualanByDateRange(_startDate, _endDate);
+      final totalBarang = await _dbHelper.getTotalBarangTerjualByDateRange(
+          _startDate, _endDate);
       final barang = await _dbHelper.getAllBarang();
-      
+
       setState(() {
         _barangMasukList = barangMasuk;
         _barangKeluarList = barangKeluar;
@@ -86,7 +91,7 @@ class _LaporanScreenState extends State<LaporanScreen> with SingleTickerProvider
       lastDate: DateTime.now(),
       initialDateRange: DateTimeRange(start: _startDate, end: _endDate),
     );
-    
+
     if (picked != null) {
       setState(() {
         _startDate = picked.start;
@@ -99,7 +104,7 @@ class _LaporanScreenState extends State<LaporanScreen> with SingleTickerProvider
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Laporan'),
@@ -154,7 +159,6 @@ class _LaporanScreenState extends State<LaporanScreen> with SingleTickerProvider
               ),
             ),
           ),
-          
           Expanded(
             child: _isLoading
                 ? const Center(child: CircularProgressIndicator())
@@ -180,8 +184,10 @@ class _LaporanScreenState extends State<LaporanScreen> with SingleTickerProvider
       );
     }
 
-    final totalJumlah = _barangMasukList.fold<int>(0, (sum, item) => sum + item.jumlah);
-    final totalNilai = _barangMasukList.fold<double>(0, (sum, item) => sum + (item.hargaMasuk * item.jumlah));
+    final totalJumlah =
+        _barangMasukList.fold<int>(0, (sum, item) => sum + item.jumlah);
+    final totalNilai = _barangMasukList.fold<double>(
+        0, (sum, item) => sum + (item.hargaMasuk * item.jumlah));
 
     return Column(
       children: [
@@ -245,7 +251,6 @@ class _LaporanScreenState extends State<LaporanScreen> with SingleTickerProvider
             ],
           ),
         ),
-        
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Row(
@@ -276,9 +281,7 @@ class _LaporanScreenState extends State<LaporanScreen> with SingleTickerProvider
             ],
           ),
         ),
-        
         const SizedBox(height: 8),
-        
         Expanded(
           child: ListView.builder(
             padding: const EdgeInsets.all(16),
@@ -331,7 +334,8 @@ class _LaporanScreenState extends State<LaporanScreen> with SingleTickerProvider
       );
     }
 
-    final totalJumlah = _barangKeluarList.fold<int>(0, (sum, item) => sum + item.jumlah);
+    final totalJumlah =
+        _barangKeluarList.fold<int>(0, (sum, item) => sum + item.jumlah);
 
     return Column(
       children: [
@@ -367,7 +371,6 @@ class _LaporanScreenState extends State<LaporanScreen> with SingleTickerProvider
             ),
           ),
         ),
-        
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Row(
@@ -398,9 +401,7 @@ class _LaporanScreenState extends State<LaporanScreen> with SingleTickerProvider
             ],
           ),
         ),
-        
         const SizedBox(height: 8),
-        
         Expanded(
           child: ListView.builder(
             padding: const EdgeInsets.all(16),
@@ -443,7 +444,8 @@ class _LaporanScreenState extends State<LaporanScreen> with SingleTickerProvider
       );
     }
 
-    final totalPenjualan = _penjualanList.fold<double>(0, (sum, item) => sum + item.totalHarga);
+    final totalPenjualan =
+        _penjualanList.fold<double>(0, (sum, item) => sum + item.totalHarga);
     final totalTransaksi = _penjualanList.length;
 
     return Column(
@@ -539,7 +541,6 @@ class _LaporanScreenState extends State<LaporanScreen> with SingleTickerProvider
             ],
           ),
         ),
-        
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Row(
@@ -570,9 +571,7 @@ class _LaporanScreenState extends State<LaporanScreen> with SingleTickerProvider
             ],
           ),
         ),
-        
         const SizedBox(height: 8),
-        
         Expanded(
           child: ListView.builder(
             padding: const EdgeInsets.all(16),
@@ -613,15 +612,17 @@ class _LaporanScreenState extends State<LaporanScreen> with SingleTickerProvider
     try {
       final excel = excel_pkg.Excel.createExcel();
       final sheet = excel['Sheet1'];
-      
+
       sheet.appendRow([
-        excel_pkg.TextCellValue('LAPORAN ${type.toUpperCase().replaceAll('_', ' ')}')
+        excel_pkg.TextCellValue(
+            'LAPORAN ${type.toUpperCase().replaceAll('_', ' ')}')
       ]);
       sheet.appendRow([
-        excel_pkg.TextCellValue('Periode: ${DateFormat('dd MMM yyyy', 'id_ID').format(_startDate)} - ${DateFormat('dd MMM yyyy', 'id_ID').format(_endDate)}')
+        excel_pkg.TextCellValue(
+            'Periode: ${DateFormat('dd MMM yyyy', 'id_ID').format(_startDate)} - ${DateFormat('dd MMM yyyy', 'id_ID').format(_endDate)}')
       ]);
       sheet.appendRow([excel_pkg.TextCellValue('')]);
-      
+
       if (type == 'barang_masuk') {
         sheet.appendRow([
           excel_pkg.TextCellValue('No'),
@@ -633,12 +634,13 @@ class _LaporanScreenState extends State<LaporanScreen> with SingleTickerProvider
           excel_pkg.TextCellValue('Harga Satuan'),
           excel_pkg.TextCellValue('Total'),
         ]);
-        
+
         for (var i = 0; i < _barangMasukList.length; i++) {
           final item = _barangMasukList[i];
           sheet.appendRow([
             excel_pkg.IntCellValue(i + 1),
-            excel_pkg.TextCellValue(DateFormat('dd/MM/yyyy').format(item.tanggalMasuk)),
+            excel_pkg.TextCellValue(
+                DateFormat('dd/MM/yyyy').format(item.tanggalMasuk)),
             excel_pkg.TextCellValue(item.namaBarang ?? item.idBarang),
             excel_pkg.TextCellValue(item.namaPemasok ?? '-'),
             excel_pkg.TextCellValue(item.namaGudang ?? '-'),
@@ -656,12 +658,13 @@ class _LaporanScreenState extends State<LaporanScreen> with SingleTickerProvider
           excel_pkg.TextCellValue('Gudang'),
           excel_pkg.TextCellValue('Jumlah'),
         ]);
-        
+
         for (var i = 0; i < _barangKeluarList.length; i++) {
           final item = _barangKeluarList[i];
           sheet.appendRow([
             excel_pkg.IntCellValue(i + 1),
-            excel_pkg.TextCellValue(DateFormat('dd/MM/yyyy').format(item.tanggalKeluar)),
+            excel_pkg.TextCellValue(
+                DateFormat('dd/MM/yyyy').format(item.tanggalKeluar)),
             excel_pkg.TextCellValue(item.namaBarang ?? item.idBarang),
             excel_pkg.TextCellValue(item.namaPelanggan ?? 'Tidak diketahui'),
             excel_pkg.TextCellValue(item.namaGudang ?? '-'),
@@ -676,12 +679,13 @@ class _LaporanScreenState extends State<LaporanScreen> with SingleTickerProvider
           excel_pkg.TextCellValue('Pelanggan'),
           excel_pkg.TextCellValue('Total Harga'),
         ]);
-        
+
         for (var i = 0; i < _penjualanList.length; i++) {
           final item = _penjualanList[i];
           sheet.appendRow([
             excel_pkg.IntCellValue(i + 1),
-            excel_pkg.TextCellValue(DateFormat('dd/MM/yyyy HH:mm').format(item.tanggalPenjualan)),
+            excel_pkg.TextCellValue(
+                DateFormat('dd/MM/yyyy HH:mm').format(item.tanggalPenjualan)),
             excel_pkg.TextCellValue(item.idPenjualan),
             excel_pkg.TextCellValue(item.namaPelanggan ?? 'Pelanggan Umum'),
             excel_pkg.DoubleCellValue(item.totalHarga),
@@ -701,9 +705,11 @@ class _LaporanScreenState extends State<LaporanScreen> with SingleTickerProvider
           excel_pkg.TextCellValue('Nilai Modal'),
           excel_pkg.TextCellValue('Nilai Jual'),
         ]);
-        
-        for (var i = 0; i < _barangList.length; i++) {
-          final item = _barangList[i];
+
+        final barangTersedia =
+            _barangList.where((item) => item.stok > 0).toList();
+        for (var i = 0; i < barangTersedia.length; i++) {
+          final item = barangTersedia[i];
           sheet.appendRow([
             excel_pkg.IntCellValue(i + 1),
             excel_pkg.TextCellValue(item.idBarang),
@@ -719,20 +725,22 @@ class _LaporanScreenState extends State<LaporanScreen> with SingleTickerProvider
           ]);
         }
       }
-      
+
       final bytes = excel.encode();
       if (bytes != null) {
         final directory = await getApplicationDocumentsDirectory();
-        final laporanDir = Directory('${directory.path}/ErlanggaMotor/Laporan/Excel');
-        
+        final laporanDir =
+            Directory('${directory.path}/ErlanggaMotor/Laporan/Excel');
+
         if (!await laporanDir.exists()) {
           await laporanDir.create(recursive: true);
         }
-        
-        final fileName = 'Laporan_${type}_${DateFormat('yyyyMMdd_HHmmss').format(DateTime.now())}.xlsx';
+
+        final fileName =
+            'Laporan_${type}_${DateFormat('yyyyMMdd_HHmmss').format(DateTime.now())}.xlsx';
         final file = File('${laporanDir.path}/$fileName');
         await file.writeAsBytes(bytes);
-        
+
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
@@ -758,16 +766,18 @@ class _LaporanScreenState extends State<LaporanScreen> with SingleTickerProvider
   Future<void> _exportToPdf(String type) async {
     try {
       final pdf = pw.Document();
-      
+
       // Load logo
-      final ByteData logoData = await rootBundle.load('icon.png');
+      final ByteData logoData = await rootBundle.load('assets/icon.png');
       final Uint8List logoBytes = logoData.buffer.asUint8List();
       final pw.MemoryImage logo = pw.MemoryImage(logoBytes);
-      
+
       if (type == 'barang_masuk') {
-        final totalJumlah = _barangMasukList.fold<int>(0, (sum, item) => sum + item.jumlah);
-        final totalNilai = _barangMasukList.fold<double>(0, (sum, item) => sum + (item.hargaMasuk * item.jumlah));
-        
+        final totalJumlah =
+            _barangMasukList.fold<int>(0, (sum, item) => sum + item.jumlah);
+        final totalNilai = _barangMasukList.fold<double>(
+            0, (sum, item) => sum + (item.hargaMasuk * item.jumlah));
+
         pdf.addPage(
           pw.MultiPage(
             pageFormat: PdfPageFormat.a4,
@@ -839,7 +849,8 @@ class _LaporanScreenState extends State<LaporanScreen> with SingleTickerProvider
                 children: [
                   pw.Text(
                     'Periode: ${DateFormat('dd MMMM yyyy', 'id_ID').format(_startDate)} - ${DateFormat('dd MMMM yyyy', 'id_ID').format(_endDate)}',
-                    style: pw.TextStyle(fontSize: 11, fontWeight: pw.FontWeight.bold),
+                    style: pw.TextStyle(
+                        fontSize: 11, fontWeight: pw.FontWeight.bold),
                   ),
                   pw.Text(
                     'Dicetak: ${DateFormat('dd/MM/yyyy HH:mm').format(DateTime.now())}',
@@ -860,7 +871,16 @@ class _LaporanScreenState extends State<LaporanScreen> with SingleTickerProvider
                 cellStyle: const pw.TextStyle(fontSize: 8),
                 cellAlignment: pw.Alignment.centerLeft,
                 cellPadding: const pw.EdgeInsets.all(4),
-                headers: ['No', 'Tanggal', 'Barang', 'Pemasok', 'Gudang', 'Qty', 'Harga', 'Total'],
+                headers: [
+                  'No',
+                  'Tanggal',
+                  'Barang',
+                  'Pemasok',
+                  'Gudang',
+                  'Qty',
+                  'Harga',
+                  'Total'
+                ],
                 data: List.generate(_barangMasukList.length, (i) {
                   final item = _barangMasukList[i];
                   return [
@@ -890,7 +910,8 @@ class _LaporanScreenState extends State<LaporanScreen> with SingleTickerProvider
                       children: [
                         pw.Text(
                           'Total Item',
-                          style: pw.TextStyle(fontSize: 10, fontWeight: pw.FontWeight.bold),
+                          style: pw.TextStyle(
+                              fontSize: 10, fontWeight: pw.FontWeight.bold),
                         ),
                         pw.Text(
                           '$totalJumlah pcs',
@@ -903,7 +924,8 @@ class _LaporanScreenState extends State<LaporanScreen> with SingleTickerProvider
                       children: [
                         pw.Text(
                           'Total Nilai',
-                          style: pw.TextStyle(fontSize: 10, fontWeight: pw.FontWeight.bold),
+                          style: pw.TextStyle(
+                              fontSize: 10, fontWeight: pw.FontWeight.bold),
                         ),
                         pw.Text(
                           'Rp ${_formatCurrency(totalNilai)}',
@@ -946,7 +968,7 @@ class _LaporanScreenState extends State<LaporanScreen> with SingleTickerProvider
                       ),
                       pw.SizedBox(height: 5),
                       pw.Text(
-                        'Pimpinan',
+                        'Hendra Setiawan',
                         style: pw.TextStyle(
                           fontSize: 10,
                           fontWeight: pw.FontWeight.bold,
@@ -960,8 +982,9 @@ class _LaporanScreenState extends State<LaporanScreen> with SingleTickerProvider
           ),
         );
       } else if (type == 'barang_keluar') {
-        final totalJumlah = _barangKeluarList.fold<int>(0, (sum, item) => sum + item.jumlah);
-        
+        final totalJumlah =
+            _barangKeluarList.fold<int>(0, (sum, item) => sum + item.jumlah);
+
         pdf.addPage(
           pw.MultiPage(
             pageFormat: PdfPageFormat.a4,
@@ -971,8 +994,8 @@ class _LaporanScreenState extends State<LaporanScreen> with SingleTickerProvider
                 crossAxisAlignment: pw.CrossAxisAlignment.center,
                 children: [
                   pw.Container(
-                    width: 70,
-                    height: 70,
+                    width: 100,
+                    height: 100,
                     child: pw.Image(logo),
                   ),
                   pw.SizedBox(width: 15),
@@ -1033,7 +1056,8 @@ class _LaporanScreenState extends State<LaporanScreen> with SingleTickerProvider
                 children: [
                   pw.Text(
                     'Periode: ${DateFormat('dd MMMM yyyy', 'id_ID').format(_startDate)} - ${DateFormat('dd MMMM yyyy', 'id_ID').format(_endDate)}',
-                    style: pw.TextStyle(fontSize: 11, fontWeight: pw.FontWeight.bold),
+                    style: pw.TextStyle(
+                        fontSize: 11, fontWeight: pw.FontWeight.bold),
                   ),
                   pw.Text(
                     'Dicetak: ${DateFormat('dd/MM/yyyy HH:mm').format(DateTime.now())}',
@@ -1054,7 +1078,14 @@ class _LaporanScreenState extends State<LaporanScreen> with SingleTickerProvider
                 cellStyle: const pw.TextStyle(fontSize: 9),
                 cellAlignment: pw.Alignment.centerLeft,
                 cellPadding: const pw.EdgeInsets.all(5),
-                headers: ['No', 'Tanggal', 'Barang', 'Pelanggan', 'Gudang', 'Jumlah'],
+                headers: [
+                  'No',
+                  'Tanggal',
+                  'Barang',
+                  'Pelanggan',
+                  'Gudang',
+                  'Jumlah'
+                ],
                 data: List.generate(_barangKeluarList.length, (i) {
                   final item = _barangKeluarList[i];
                   return [
@@ -1115,7 +1146,7 @@ class _LaporanScreenState extends State<LaporanScreen> with SingleTickerProvider
                       ),
                       pw.SizedBox(height: 5),
                       pw.Text(
-                        'Pimpinan',
+                        'Hendra Setiawan',
                         style: pw.TextStyle(
                           fontSize: 10,
                           fontWeight: pw.FontWeight.bold,
@@ -1129,14 +1160,13 @@ class _LaporanScreenState extends State<LaporanScreen> with SingleTickerProvider
           ),
         );
       } else if (type == 'penjualan') {
-        // Load logo
-        final ByteData logoData = await rootBundle.load('icon.png');
+        final ByteData logoData = await rootBundle.load('assets/icon.png');
         final Uint8List logoBytes = logoData.buffer.asUint8List();
         final pw.MemoryImage logo = pw.MemoryImage(logoBytes);
-        
-        // Calculate total
-        final totalPenjualan = _penjualanList.fold<double>(0, (sum, item) => sum + item.totalHarga);
-        
+
+        final totalPenjualan = _penjualanList.fold<double>(
+            0, (sum, item) => sum + item.totalHarga);
+
         pdf.addPage(
           pw.MultiPage(
             pageFormat: PdfPageFormat.a4,
@@ -1146,8 +1176,8 @@ class _LaporanScreenState extends State<LaporanScreen> with SingleTickerProvider
                 crossAxisAlignment: pw.CrossAxisAlignment.center,
                 children: [
                   pw.Container(
-                    width: 70,
-                    height: 70,
+                    width: 100,
+                    height: 100,
                     child: pw.Image(logo),
                   ),
                   pw.SizedBox(width: 15),
@@ -1189,11 +1219,11 @@ class _LaporanScreenState extends State<LaporanScreen> with SingleTickerProvider
                   ),
                 ],
               ),
-              
+
               pw.SizedBox(height: 10),
               pw.Divider(thickness: 2, color: PdfColors.blue900),
               pw.SizedBox(height: 15),
-              
+
               // Report Title
               pw.Center(
                 child: pw.Text(
@@ -1206,14 +1236,15 @@ class _LaporanScreenState extends State<LaporanScreen> with SingleTickerProvider
                 ),
               ),
               pw.SizedBox(height: 10),
-              
+
               // Period Info
               pw.Row(
                 mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
                 children: [
                   pw.Text(
                     'Periode: ${DateFormat('dd MMMM yyyy', 'id_ID').format(_startDate)} - ${DateFormat('dd MMMM yyyy', 'id_ID').format(_endDate)}',
-                    style: pw.TextStyle(fontSize: 11, fontWeight: pw.FontWeight.bold),
+                    style: pw.TextStyle(
+                        fontSize: 11, fontWeight: pw.FontWeight.bold),
                   ),
                   pw.Text(
                     'Dicetak: ${DateFormat('dd/MM/yyyy HH:mm').format(DateTime.now())}',
@@ -1222,7 +1253,7 @@ class _LaporanScreenState extends State<LaporanScreen> with SingleTickerProvider
                 ],
               ),
               pw.SizedBox(height: 15),
-              
+
               // Sales Table
               pw.TableHelper.fromTextArray(
                 headerStyle: pw.TextStyle(
@@ -1236,21 +1267,28 @@ class _LaporanScreenState extends State<LaporanScreen> with SingleTickerProvider
                 cellStyle: const pw.TextStyle(fontSize: 9),
                 cellAlignment: pw.Alignment.centerLeft,
                 cellPadding: const pw.EdgeInsets.all(5),
-                headers: ['No', 'Tanggal', 'ID Penjualan', 'Pelanggan', 'Total Harga (Rp)'],
+                headers: [
+                  'No',
+                  'Tanggal',
+                  'ID Penjualan',
+                  'Pelanggan',
+                  'Total Harga (Rp)'
+                ],
                 data: List.generate(_penjualanList.length, (i) {
                   final item = _penjualanList[i];
                   return [
                     '${i + 1}',
-                    DateFormat('dd/MM/yyyy HH:mm').format(item.tanggalPenjualan),
+                    DateFormat('dd/MM/yyyy HH:mm')
+                        .format(item.tanggalPenjualan),
                     item.idPenjualan,
                     item.namaPelanggan ?? 'Pelanggan Umum',
                     _formatCurrency(item.totalHarga),
                   ];
                 }),
               ),
-              
+
               pw.SizedBox(height: 10),
-              
+
               // Summary
               pw.Container(
                 padding: const pw.EdgeInsets.all(10),
@@ -1266,7 +1304,8 @@ class _LaporanScreenState extends State<LaporanScreen> with SingleTickerProvider
                       children: [
                         pw.Text(
                           'Total Transaksi',
-                          style: pw.TextStyle(fontSize: 10, fontWeight: pw.FontWeight.bold),
+                          style: pw.TextStyle(
+                              fontSize: 10, fontWeight: pw.FontWeight.bold),
                         ),
                         pw.Text(
                           '${_penjualanList.length} transaksi',
@@ -1279,7 +1318,8 @@ class _LaporanScreenState extends State<LaporanScreen> with SingleTickerProvider
                       children: [
                         pw.Text(
                           'Total Barang Terjual',
-                          style: pw.TextStyle(fontSize: 10, fontWeight: pw.FontWeight.bold),
+                          style: pw.TextStyle(
+                              fontSize: 10, fontWeight: pw.FontWeight.bold),
                         ),
                         pw.Text(
                           '$_totalBarangTerjual pcs',
@@ -1296,7 +1336,8 @@ class _LaporanScreenState extends State<LaporanScreen> with SingleTickerProvider
                       children: [
                         pw.Text(
                           'Total Penjualan',
-                          style: pw.TextStyle(fontSize: 10, fontWeight: pw.FontWeight.bold),
+                          style: pw.TextStyle(
+                              fontSize: 10, fontWeight: pw.FontWeight.bold),
                         ),
                         pw.Text(
                           'Rp ${_formatCurrency(totalPenjualan)}',
@@ -1311,9 +1352,9 @@ class _LaporanScreenState extends State<LaporanScreen> with SingleTickerProvider
                   ],
                 ),
               ),
-              
+
               pw.SizedBox(height: 30),
-              
+
               // Signature Section
               pw.Row(
                 mainAxisAlignment: pw.MainAxisAlignment.end,
@@ -1342,7 +1383,7 @@ class _LaporanScreenState extends State<LaporanScreen> with SingleTickerProvider
                       ),
                       pw.SizedBox(height: 5),
                       pw.Text(
-                        'Pimpinan',
+                        'Hendra Setiawan',
                         style: pw.TextStyle(
                           fontSize: 10,
                           fontWeight: pw.FontWeight.bold,
@@ -1356,11 +1397,16 @@ class _LaporanScreenState extends State<LaporanScreen> with SingleTickerProvider
           ),
         );
       } else if (type == 'stok_barang') {
-        final totalItem = _barangList.length;
-        final totalStok = _barangList.fold<int>(0, (sum, item) => sum + item.stok);
-        final totalNilaiBeli = _barangList.fold<double>(0, (sum, item) => sum + (item.hargaBeli * item.stok));
-        final totalNilaiJual = _barangList.fold<double>(0, (sum, item) => sum + (item.hargaJual * item.stok));
-        
+        final barangTersedia =
+            _barangList.where((item) => item.stok > 0).toList();
+        final totalItem = barangTersedia.length;
+        final totalStok =
+            barangTersedia.fold<int>(0, (sum, item) => sum + item.stok);
+        final totalNilaiBeli = barangTersedia.fold<double>(
+            0, (sum, item) => sum + (item.hargaBeli * item.stok));
+        final totalNilaiJual = barangTersedia.fold<double>(
+            0, (sum, item) => sum + (item.hargaJual * item.stok));
+
         pdf.addPage(
           pw.MultiPage(
             pageFormat: PdfPageFormat.a4.landscape,
@@ -1371,8 +1417,8 @@ class _LaporanScreenState extends State<LaporanScreen> with SingleTickerProvider
                 crossAxisAlignment: pw.CrossAxisAlignment.center,
                 children: [
                   pw.Container(
-                    width: 70,
-                    height: 70,
+                    width: 100,
+                    height: 100,
                     child: pw.Image(logo),
                   ),
                   pw.SizedBox(width: 15),
@@ -1433,7 +1479,7 @@ class _LaporanScreenState extends State<LaporanScreen> with SingleTickerProvider
                 style: const pw.TextStyle(fontSize: 9),
               ),
               pw.SizedBox(height: 15),
-              
+
               // Stock Table
               pw.TableHelper.fromTextArray(
                 headerStyle: pw.TextStyle(
@@ -1447,9 +1493,21 @@ class _LaporanScreenState extends State<LaporanScreen> with SingleTickerProvider
                 cellStyle: const pw.TextStyle(fontSize: 7),
                 cellAlignment: pw.Alignment.centerLeft,
                 cellPadding: const pw.EdgeInsets.all(3),
-                headers: ['No', 'Kode', 'Nama Barang', 'Kategori', 'Merek', 'Stok', 'Satuan', 'Harga Beli', 'Harga Jual', 'Nilai Modal', 'Nilai Jual'],
-                data: List.generate(_barangList.length, (i) {
-                  final item = _barangList[i];
+                headers: [
+                  'No',
+                  'Kode',
+                  'Nama Barang',
+                  'Kategori',
+                  'Merek',
+                  'Stok',
+                  'Satuan',
+                  'Harga Beli',
+                  'Harga Jual',
+                  'Nilai Modal',
+                  'Nilai Jual'
+                ],
+                data: List.generate(barangTersedia.length, (i) {
+                  final item = barangTersedia[i];
                   return [
                     '${i + 1}',
                     item.idBarang,
@@ -1465,9 +1523,9 @@ class _LaporanScreenState extends State<LaporanScreen> with SingleTickerProvider
                   ];
                 }),
               ),
-              
+
               pw.SizedBox(height: 10),
-              
+
               // Summary
               pw.Container(
                 padding: const pw.EdgeInsets.all(10),
@@ -1483,7 +1541,8 @@ class _LaporanScreenState extends State<LaporanScreen> with SingleTickerProvider
                       children: [
                         pw.Text(
                           'Total Item',
-                          style: pw.TextStyle(fontSize: 10, fontWeight: pw.FontWeight.bold),
+                          style: pw.TextStyle(
+                              fontSize: 10, fontWeight: pw.FontWeight.bold),
                         ),
                         pw.Text(
                           '$totalItem item',
@@ -1496,7 +1555,8 @@ class _LaporanScreenState extends State<LaporanScreen> with SingleTickerProvider
                       children: [
                         pw.Text(
                           'Total Stok',
-                          style: pw.TextStyle(fontSize: 10, fontWeight: pw.FontWeight.bold),
+                          style: pw.TextStyle(
+                              fontSize: 10, fontWeight: pw.FontWeight.bold),
                         ),
                         pw.Text(
                           '$totalStok pcs',
@@ -1509,7 +1569,8 @@ class _LaporanScreenState extends State<LaporanScreen> with SingleTickerProvider
                       children: [
                         pw.Text(
                           'Nilai Modal',
-                          style: pw.TextStyle(fontSize: 10, fontWeight: pw.FontWeight.bold),
+                          style: pw.TextStyle(
+                              fontSize: 10, fontWeight: pw.FontWeight.bold),
                         ),
                         pw.Text(
                           'Rp ${_formatCurrency(totalNilaiBeli)}',
@@ -1526,7 +1587,8 @@ class _LaporanScreenState extends State<LaporanScreen> with SingleTickerProvider
                       children: [
                         pw.Text(
                           'Nilai Jual Potensial',
-                          style: pw.TextStyle(fontSize: 10, fontWeight: pw.FontWeight.bold),
+                          style: pw.TextStyle(
+                              fontSize: 10, fontWeight: pw.FontWeight.bold),
                         ),
                         pw.Text(
                           'Rp ${_formatCurrency(totalNilaiJual)}',
@@ -1541,9 +1603,9 @@ class _LaporanScreenState extends State<LaporanScreen> with SingleTickerProvider
                   ],
                 ),
               ),
-              
+
               pw.SizedBox(height: 30),
-              
+
               // Signature Section
               pw.Row(
                 mainAxisAlignment: pw.MainAxisAlignment.end,
@@ -1572,7 +1634,7 @@ class _LaporanScreenState extends State<LaporanScreen> with SingleTickerProvider
                       ),
                       pw.SizedBox(height: 5),
                       pw.Text(
-                        'Pimpinan',
+                        'Hendra Setiawan',
                         style: pw.TextStyle(
                           fontSize: 10,
                           fontWeight: pw.FontWeight.bold,
@@ -1586,18 +1648,20 @@ class _LaporanScreenState extends State<LaporanScreen> with SingleTickerProvider
           ),
         );
       }
-      
+
       final directory = await getApplicationDocumentsDirectory();
-      final laporanDir = Directory('${directory.path}/ErlanggaMotor/Laporan/PDF');
-      
+      final laporanDir =
+          Directory('${directory.path}/ErlanggaMotor/Laporan/PDF');
+
       if (!await laporanDir.exists()) {
         await laporanDir.create(recursive: true);
       }
-      
-      final fileName = 'Laporan_${type}_${DateFormat('yyyyMMdd_HHmmss').format(DateTime.now())}.pdf';
+
+      final fileName =
+          'Laporan_${type}_${DateFormat('yyyyMMdd_HHmmss').format(DateTime.now())}.pdf';
       final file = File('${laporanDir.path}/$fileName');
       await file.writeAsBytes(await pdf.save());
-      
+
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
@@ -1615,7 +1679,8 @@ class _LaporanScreenState extends State<LaporanScreen> with SingleTickerProvider
                   if (mounted) {
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(
-                        content: Text('Tidak dapat membuka preview. PDF sudah tersimpan di folder Laporan.'),
+                        content: Text(
+                            'Tidak dapat membuka preview. PDF sudah tersimpan di folder Laporan.'),
                         duration: Duration(seconds: 3),
                       ),
                     );
@@ -1642,12 +1707,24 @@ class _LaporanScreenState extends State<LaporanScreen> with SingleTickerProvider
       );
     }
 
+    // Filter hanya barang yang stoknya > 0
+    final barangTersedia = _barangList.where((item) => item.stok > 0).toList();
+
+    if (barangTersedia.isEmpty) {
+      return const Center(
+        child: Text('Tidak ada barang dengan stok tersedia'),
+      );
+    }
+
     // Hitung statistik
-    final totalItem = _barangList.length;
-    final totalStok = _barangList.fold<int>(0, (sum, item) => sum + item.stok);
-    final totalNilaiBeli = _barangList.fold<double>(0, (sum, item) => sum + (item.hargaBeli * item.stok));
-    final totalNilaiJual = _barangList.fold<double>(0, (sum, item) => sum + (item.hargaJual * item.stok));
-    final stokRendah = _barangList.where((item) => item.stok < 10).length;
+    final totalItem = barangTersedia.length;
+    final totalStok =
+        barangTersedia.fold<int>(0, (sum, item) => sum + item.stok);
+    final totalNilaiBeli = barangTersedia.fold<double>(
+        0, (sum, item) => sum + (item.hargaBeli * item.stok));
+    final totalNilaiJual = barangTersedia.fold<double>(
+        0, (sum, item) => sum + (item.hargaJual * item.stok));
+    final stokRendah = barangTersedia.where((item) => item.stok < 10).length;
 
     return Column(
       children: [
@@ -1667,7 +1744,8 @@ class _LaporanScreenState extends State<LaporanScreen> with SingleTickerProvider
                           children: [
                             Text(
                               'Total Item',
-                              style: TextStyle(color: Colors.blue.shade700, fontSize: 12),
+                              style: TextStyle(
+                                  color: Colors.blue.shade700, fontSize: 12),
                             ),
                             const SizedBox(height: 4),
                             Text(
@@ -1694,7 +1772,8 @@ class _LaporanScreenState extends State<LaporanScreen> with SingleTickerProvider
                           children: [
                             Text(
                               'Total Stok',
-                              style: TextStyle(color: Colors.orange.shade700, fontSize: 12),
+                              style: TextStyle(
+                                  color: Colors.orange.shade700, fontSize: 12),
                             ),
                             const SizedBox(height: 4),
                             Text(
@@ -1721,7 +1800,8 @@ class _LaporanScreenState extends State<LaporanScreen> with SingleTickerProvider
                           children: [
                             Text(
                               'Stok Rendah',
-                              style: TextStyle(color: Colors.red.shade700, fontSize: 12),
+                              style: TextStyle(
+                                  color: Colors.red.shade700, fontSize: 12),
                             ),
                             const SizedBox(height: 4),
                             Text(
@@ -1752,7 +1832,8 @@ class _LaporanScreenState extends State<LaporanScreen> with SingleTickerProvider
                           children: [
                             Text(
                               'Nilai Modal (Harga Beli)',
-                              style: TextStyle(color: Colors.green.shade700, fontSize: 12),
+                              style: TextStyle(
+                                  color: Colors.green.shade700, fontSize: 12),
                             ),
                             const SizedBox(height: 4),
                             Text(
@@ -1779,7 +1860,8 @@ class _LaporanScreenState extends State<LaporanScreen> with SingleTickerProvider
                           children: [
                             Text(
                               'Nilai Jual Potensial',
-                              style: TextStyle(color: Colors.purple.shade700, fontSize: 12),
+                              style: TextStyle(
+                                  color: Colors.purple.shade700, fontSize: 12),
                             ),
                             const SizedBox(height: 4),
                             Text(
@@ -1800,7 +1882,6 @@ class _LaporanScreenState extends State<LaporanScreen> with SingleTickerProvider
             ],
           ),
         ),
-        
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Row(
@@ -1831,17 +1912,15 @@ class _LaporanScreenState extends State<LaporanScreen> with SingleTickerProvider
             ],
           ),
         ),
-        
         const SizedBox(height: 8),
-        
         Expanded(
           child: ListView.builder(
             padding: const EdgeInsets.all(16),
-            itemCount: _barangList.length,
+            itemCount: barangTersedia.length,
             itemBuilder: (context, index) {
-              final item = _barangList[index];
+              final item = barangTersedia[index];
               final isLowStock = item.stok < 10;
-              
+
               return Card(
                 margin: const EdgeInsets.only(bottom: 8),
                 child: ListTile(
@@ -1902,4 +1981,3 @@ class _LaporanScreenState extends State<LaporanScreen> with SingleTickerProvider
         );
   }
 }
-
